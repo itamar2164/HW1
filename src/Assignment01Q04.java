@@ -3,9 +3,23 @@ import java.util.Arrays;
 public class Assignment01Q04 {
 
     public static int[] shiftArrayCyclic(int[] array, int move, char direction) {
-        // TODO: implement
+    if (direction != 'R' && direction != 'L')
         return array;
+    int n = array.length;
+    if (n == 0)
+        return array;
+    if (direction == 'L')
+        move = -move;
+    int k = ((move % n) + n) % n;
+    int[] part1 = Arrays.copyOfRange(array, n - k, n);
+    int[] part2 = Arrays.copyOfRange(array, 0, n - k);
+    int[] result = Arrays.copyOf(part1, part1.length + part2.length);
+    System.arraycopy(part2, 0, result, part1.length, part2.length);
+    for (int i = 0; i < n; i++) {
+        array[i] = result[i];
     }
+    return array;
+}
 
     public static void main(String[] args) {
         System.out.println(Arrays.toString(
